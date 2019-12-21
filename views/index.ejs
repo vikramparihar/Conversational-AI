@@ -1,0 +1,25 @@
+<html>
+  <head><title>Welcome to Conversational AI Test</title></head>
+  <body>
+  	<h1>
+  		Welcome to Conversational AI Test
+  	</h1>
+  	<p>
+  	<% if (error) { %>
+	  <h2><%= error %></h2>
+	<% } else { %>
+	<h3>Top 10 words</h3>
+  		
+  	<pre>
+  		<%= JSON.stringify(wordsCount) %>	
+  	</pre>
+  	</p>
+  	<h3>Result</h3>
+  	<p>
+  		<pre>
+    		<%= JSON.stringify(data) %>;
+		</pre>
+	</p>
+	<% } %>
+  </body>
+</html>
