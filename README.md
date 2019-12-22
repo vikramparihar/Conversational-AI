@@ -9,7 +9,7 @@ Requirement <br>
     - npm install
     - node app.js
     
-    - You will see like this: Example app listening on port 3000
+    - You will see like this on terminal: Example app listening on port 3000
   
 ###<br>
   - Open your browser and paste the url (http://localhost:3000/)
