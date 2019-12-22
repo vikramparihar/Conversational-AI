@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const asyncMiddleware = require('./helper/asyncMiddleware');
 const fs = require('fs').promises;
-let endPoint = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20170610T055246Z.0f11bdc42e7b693a.eefbde961e10106a4efa7d852287caa49ecc68cf&lang=en-ru&text='
+let endPoint = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20170610T055246Z.0f11bdc42e7b693a.eefbde961e10106a4efa7d852287caa49ecc68cf&lang=en-en&text='
 const fileUrl = 'http://norvig.com/big.txt';
 
 app.set('view engine', 'ejs');
@@ -65,8 +65,8 @@ app.get('/', asyncMiddleware(async(req, res)=> {
 				wordResult = wordResult.data.def;
 				if (wordResult.length) {
 					let node = {};
-					node['word'] = word;
 					let synPos = getSynPos(wordResult); 
+					node['word'] = word;
 					node['Synonyms'] = synPos.synonyms;
 					node['Count of Occurrence in that Particular Document'] = wordsCount[word];
 					node['Pos'] =  synPos.pos;
@@ -77,6 +77,8 @@ app.get('/', asyncMiddleware(async(req, res)=> {
 				break;
 		 	}
 		}
+		console.log(wordsCount);
+		console.log(data);
 		res.render('index', {data: data, wordsCount: wordsCount, error: error});
              
 }));
@@ -138,12 +140,12 @@ function getSynPos(data) {
 				for (let node of txt.mean) {
 					resultText.push(node.text);
 				}
-			} else {
-				if (txt.text !== undefined) {
-					resultText.push(txt.text);
-					resultPos.push(txt.pos);
-				}
+			} 
+			if (txt.text !== undefined) {
+				resultText.push(txt.text);
+				resultPos.push(txt.pos);
 			}
+			
 		}
 	}
 	let result = {
